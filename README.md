@@ -21,7 +21,7 @@ npm install bower -g
 After running those commands, you can just run the webapp with these commands:
 go to the directory where your git your CSC_4350 repo is at
 So:
-cd CSC_4350/
+cd /whatever/your/path/is/CSC_4350/
 
 then run this command:
 gulp serve
