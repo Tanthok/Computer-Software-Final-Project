@@ -3,6 +3,8 @@ package sample.model;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -57,5 +59,16 @@ public class BikePart implements Item
         imageView.setFitWidth(width);
         imageView.setImage(image);
         return imageView;
+    }
+
+    public VBox getVBox(int width, int height) throws Exception
+    {
+        VBox box = new VBox();
+        Text textPrice = new Text(price.toString());
+        Text textName = new Text(name);
+        box.getChildren().add(getImageView(width, height));
+        box.getChildren().add(textName);
+        box.getChildren().add(textPrice);
+        return box;
     }
 }

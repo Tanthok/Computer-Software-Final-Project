@@ -10,6 +10,7 @@ public class User
 
     public User(String newUserName, String newPassword)
     {
-        
+        username = newUserName;
+        password = newPassword;
     }
 }
