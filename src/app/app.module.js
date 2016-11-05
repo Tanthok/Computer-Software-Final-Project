@@ -4,8 +4,10 @@
     angular.module('app', [
         'app.core',
         'app.directives',
+        'app.login',
         'app.home',
-        'app.layout'
+        'app.layout',
+        'app.bikepart'
     ]);
 
 })
