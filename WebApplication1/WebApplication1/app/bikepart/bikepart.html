@@ -1,0 +1,18 @@
+<h1>test</h1>
+<div class="container-fluid">
+<md-content>
+      <md-list flex>
+          <md-list-item class="md-3-line" ng-repeat="item in todos">
+          <div class=".col-sm-6">
+          <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+      		</div>
+          <div class=".col-sm-6">
+            <h3>{{ item.what }}</h3>
+            <h4>{{ item.who }}</h4>
+            <p>{{ item.when }}</p>
+            <button type="button" name="Add To Cart" ng-click="addToCart(item)">Add To Cart</button>
+          </div>
+        </md-list-item>
+    </md-list>
+</md-content>
+</div>
