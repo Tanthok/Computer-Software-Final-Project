@@ -6,7 +6,7 @@
     .factory('CoreService', CoreService);
 
   /** @ngInject */
-  function CoreService($http, $q, logger, $rootScope, $modal, $state) {
+    function CoreService($http, $q, logger, $rootScope, $modal, $state, $mdToast) {
     var scannedData = {};
 
     var service = {
@@ -35,9 +35,9 @@
       getJobHistory: getJobHistory,
       getFunctions: getFunctions,
       goToHomePage: goToHomePage,
-      goToUsage: goToUsage
+	goToUsage: goToUsage
     };
-
+	
     function getFunctions(job)
     {
       return $http.get('rs/function', {params: {'job': job}}).then(success)

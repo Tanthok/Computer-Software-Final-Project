@@ -7,7 +7,8 @@
         'app.login',
         'app.home',
         'app.layout',
-        'app.bikepart'
+        'app.bikepart',
+	'app.custombikepage'
     ]);
 
 })

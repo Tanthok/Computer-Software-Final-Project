@@ -1,4 +1,5 @@
-    'use strict';
+
+'use strict';
     (function () {
 
     angular
@@ -6,15 +7,30 @@
         .controller('BikePartController', BikePartController);
 
     /* @ngInject */
-    function BikePartController($stateParams, $scope,  $q, logger, CoreService){
+	function BikePartController($stateParams, $scope,  $q, logger, CoreService, $mdDialog, $mdToast){
         var imagePath = 'assets/images/angular.png';
 
+	    $scope.addToCart = function(ev, item) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: 'assets/templates/addItemToCart.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+	fullscreen: false, // Only for -xs, -sm breakpoints.
+	locals: {
+	    item : item
+	}
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+  };
 
-        $scope.addToCart = function(item)
-        {
-            console.log(item)
-        }
-        $scope.todos = [
+
+$scope.todos = [
       {
         face : imagePath,
         what: 'Brunch this weekend?',
@@ -56,5 +72,28 @@
         {
             console.log($scope.user)
         }
+	    function DialogController($scope, $mdDialog, $mdToast, item) {
+		$scope.quantity = 1
+		$scope.item = item
+		console.log(item)
+		$mdToast.show(
+		    $mdToast.simple()
+			.textContent("Heeyyy")
+			.hideDelay(3000)
+		)
+		$scope.validate = function()
+		{
+		}
+		
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+		$scope.answer = function(quantity1) {
+		    console.log(quantity1 + " quantity")
+      $mdDialog.hide(answer);
+    };
+  }
     }
 })();
