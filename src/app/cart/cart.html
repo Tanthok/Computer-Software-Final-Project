@@ -1,0 +1,13 @@
+<h1>Cart</h1>
+    <div class="row" ng-repeat="item in cart" >
+          <div class="small-4 column">
+            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+	  </div>
+          <div class="small-2 column">{{ item.what }}
+	  </div>
+	  <div class="small-2 column">{{ item.who }}</div>
+	  <div class="small-2 column"><button type="button" name="Add To Cart" ng-click="changeQuantity($event, item)">Change Quantity</button></div>
+	  <div class="small-2 column">
+            <button type="button" name="Add To Cart" ng-click="removeFromCart($index, item)">Remove</button>
+	  </div>
+    </div>

@@ -17,9 +17,9 @@
         </p>
 
         <form name="myForm">
-  <label>Number:
+  <label>Quantity:
     <input type="number" name="input" ng-model="quantity"
-           min="1" max="99" required>
+           min="1" required>
  </label>
  </form>
       </div>
@@ -27,11 +27,11 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer(quantity)">
-       Not Useful
+      <md-button ng-click="validate()">
+       Add To Cart
       </md-button>
-      <md-button ng-click="answer(quantity)">
-        Useful
+      <md-button ng-click="cancel()">
+        Cancel
       </md-button>
     </md-dialog-actions>
   </form>

@@ -10,6 +10,8 @@
 	function BikePartController($stateParams, $scope,  $q, logger, CoreService, $mdDialog, $mdToast){
         var imagePath = 'assets/images/angular.png';
 
+        $scope.quantity = 0
+
 	    $scope.addToCart = function(ev, item) {
     $mdDialog.show({
       controller: DialogController,
@@ -22,10 +24,18 @@
 	    item : item
 	}
     })
-    .then(function(answer) {
-      $scope.status = 'You said the information was "' + answer + '".';
+    .then(function() {
+      $mdToast.show(
+		    $mdToast.simple()
+			.textContent("Item was added to cart")
+			.hideDelay(3000)
+			)
     }, function() {
-      $scope.status = 'You cancelled the dialog.';
+      $mdToast.show(
+		    $mdToast.simple()
+			.textContent("Item was not added to cart")
+			.hideDelay(3000)
+			)
     });
   };
 
@@ -73,26 +83,19 @@ $scope.todos = [
             console.log($scope.user)
         }
 	    function DialogController($scope, $mdDialog, $mdToast, item) {
+		$scope.myForm = {}
 		$scope.quantity = 1
 		$scope.item = item
 		console.log(item)
-		$mdToast.show(
-		    $mdToast.simple()
-			.textContent("Heeyyy")
-			.hideDelay(3000)
-		)
 		$scope.validate = function()
 		{
+      CoreService.addToCart({"item": item, "quantity": $scope.quantity})
+		    $mdDialog.hide()
 		}
-		
+
 
     $scope.cancel = function() {
       $mdDialog.cancel();
-    };
-
-		$scope.answer = function(quantity1) {
-		    console.log(quantity1 + " quantity")
-      $mdDialog.hide(answer);
     };
   }
     }

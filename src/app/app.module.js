@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    
+
     angular.module('app', [
         'app.core',
         'app.directives',
@@ -8,7 +8,10 @@
         'app.home',
         'app.layout',
         'app.bikepart',
-	'app.custombikepage'
+	'app.custombikepage',
+	'app.cart',
+	'app.register',
+  'app.profile'
     ]);
 
 })

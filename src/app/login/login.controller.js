@@ -14,6 +14,15 @@
         $scope.loginFunc = function()
         {
             console.log($scope.user)
-        }
+            var result = CoreService.login($scope.user.username, $scope.user.password)
+            if(result == true)
+            {
+              CoreService.notification('succesful login');
+              CoreService.goToHomePage();
+            }
+            else {
+              CoreService.notification('unsuccesful login');
+            }
+          }
     }
 })();

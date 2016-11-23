@@ -3,7 +3,6 @@
 
   angular.module('app.login', [
     'app.core',
-    'app.directives',
-    'colorpicker.module'
+    'app.directives'
   ]);
 })();

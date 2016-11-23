@@ -7,8 +7,8 @@
         .config(configure)
 
     var config = {
-        appErrorPrefix: '[SKUTube Error] ',
-        appTitle: 'Data Pipelines Health Tracker'
+        appErrorPrefix: '[Error] ',
+        appTitle: 'Bike Shop'
     };
 
     angular
