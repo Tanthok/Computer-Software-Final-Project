@@ -10,6 +10,8 @@
 	function CartController($stateParams, $scope,  $q, logger, CoreService, $mdDialog, $mdToast){
             var imagePath = 'assets/images/angular.png';
 
+
+
 	    $scope.removeFromCart = function(ev, index, item)
 	    {
 		console.log("this shit was clicked " + index)
@@ -64,7 +66,7 @@
 
 
 $scope.cart = CoreService.getCart()
-
+        console.log($scope.cart)
         $scope.loginFunc = function()
         {
             console.log($scope.user)

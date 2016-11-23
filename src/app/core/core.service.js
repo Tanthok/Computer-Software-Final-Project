@@ -103,10 +103,8 @@
     }
     function isAuthenticated()
     {
-      console.log($cookies.getAll())
         if (getCurrentUser() == null || getCurrentUser() == {})
         {
-          console.log("soo false")
           return false;
         }
         else {

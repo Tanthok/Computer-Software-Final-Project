@@ -3,13 +3,13 @@
   <tabset>
     <div class="small-6 column">
   <tab heading="List">
-    <div class="row" ng-repeat="item in todos">
+    <div class="row" ng-repeat="item in items">
           <div class="small-4 column">
-            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+            <img ng-src="{{item.photo}}?{{$index}}" class="md-avatar" alt="{{item.name}}" />
 	  </div>
-          <div class="small-2 column">{{ item.what }}
+          <div class="small-2 column">{{ item.name }}
 	  </div>
-	  <div class="small-2 column">{{ item.who }}</div>
+	  <div class="small-2 column">{{ item.price }}</div>
 	  <div class="small-2 column">{{ item.when }}</div>
 	  <div class="small-2 column">
             <button type="button" name="Add To Cart" ng-click="addToCart($event, item)">Add To Cart</button>
@@ -29,6 +29,6 @@
     </ul>
   </tab>
     </div>
- 
+
 </tabset>
 </div>
