@@ -1,10 +1,51 @@
-<custombike fork-color = "forkColor" frame-color="frameColor" 
-seat-color='seatColor' handle-color="handleColor" frame-decal-color='frameDecalColor'></custombike>
-<button ng-click="click()">Change Directive Text</button>
+<div class="w3-content w3-section" style="max-width:700px">
+    <img class="mySlides w3-animate-top" src="assets/1.gif" style="width:100%">
+    <img class="mySlides w3-animate-bottom" src="assets/2.gif" style="width:100%">
+    <img class="mySlides w3-animate-top" src="assets/3.gif" style="width:100%">
+    <img class="mySlides w3-animate-bottom" src="assets/4.gif" style="width:100%">
+</div>
 
-<button colorpicker type="button" colorpicker-position="top" ng-model="forkColor">Change Color of Fork</button>
-<button colorpicker type="button" colorpicker-position="top" ng-model="frameColor">Change Color of Frame</button>
-<button colorpicker type="button" colorpicker-position="top" ng-model="seatColor">Change Color of Seat</button>
-<button colorpicker type="button" colorpicker-position="top" ng-model="handleColor">Change Color of Handle</button>
+<script>
+    var myIndex = 0;
+    carousel();
 
-<button colorpicker type="button" colorpicker-position="top" ng-model="frameDecalColor">Change Color of Frame Decal</button>
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) {
+            myIndex = 1
+        }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 2500);
+    }
+</script>
+
+
+<div class="row">
+  <div class="large-4 small-4 columns">
+    <button type="button" ng-click="goToBikePart(forks)">Forks</button>
+    </div>
+  <div class="large-4 small-4 columns">
+    <button ng-click="goToBikePart(frames)" type="button">Frames</button>
+  </div>
+
+      <div class="large-4 small-4 columns">
+	<button ng-click="goToBikePart(seats)" type="button">Seats</button>
+	</div>
+</div>
+
+<div class="row">
+  <div class="large-4 small-4 columns">
+    <button ng-click="goToBikePart(handles)" type="button">Handles</button>
+  </div>
+  <div class="large-4 small-4 columns">
+    <button ng-click="goToBikePart(wheels)" type="button">Wheels</button>
+  </div>
+  <div class="large-4 small-4 columns">
+    <button ng-click="goToCustomBike()" type="button">Custom Bikes</button>
+  </div>
+</div>

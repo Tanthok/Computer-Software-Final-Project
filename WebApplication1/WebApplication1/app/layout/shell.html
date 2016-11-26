@@ -6,22 +6,11 @@
         <section class="left top-bar-section">
           <ul class="left" style="list-style:none;">
             <li><a class="left-off-canvas-toggle menu-icon"><span></span></a></li>
-            <li> <a ng-click='goToHomePage()'>Data Pipelines Monitoring</a></li>
+            <li> <a ng-click='goToHomePage()'>BikeShop</a></li>
           </ul>
         </section>
         <section class="right top-bar-section ">
           <ul class="right" style="list-style:none;">
-            <!-- <li id="search-input" class="has-form">
-              <input
-                ng-model="vm.searchquery"
-                type="text"
-                placeholder="Search Videos"
-                dl-enter-key="search(vm.searchquery)">
-            </li> -->
-            <!--  Maximize button commented out. -->
-            <!-- <li ng-if="!isFP">
-              <h1><a href="#" ng-click="fullScreen()"><i class="fa fa-caret-up"></i></a></h1>
-            </li> -->
           </ul>
         </section>
       </nav>
@@ -29,53 +18,21 @@
 		<aside class="left-off-canvas-menu">
 			<ul class="off-canvas-list">
 				<div ng-switch on="isAuthenticated()">
-					<li ng-switch-when="true" ng-click="open()"><label id="currentUser">{{currentUser}}</label></li>
-					<li ng-switch-when="false"><a id="username-link" ng-click="open()">Login</a></li>
+					<li ng-switch-when="true"><a ng-click="goToProfile()">User</a></li>
+					<li ng-switch-when="true"><a ng-click="logout()">Logout</a></li>
+					<li ng-switch-when="false"><a ng-click="goToLogin()">Login</a></li>
+					<li ng-switch-when="false"><a ng-click="goToRegister()">Register</a></li>
 				</div>
-<!-- 				<li ng-if="isAuthenticated()"> -->
-<!-- 					<a ui-sref="profile()" -->
-<!-- 						 ui-sref-opts="{inherit: false}" -->
-<!-- 				 	 	 ga ga-bind="click" -->
-<!--            	 ga-catagory="'Sidebar'" -->
-<!--              ga-action="'nav-channel'" -->
-<!--              ga-label="'Edit Profile'"> -->
-<!-- 						 Edit Profile</a> -->
-<!-- 				</li> -->
-				<!--<li>
-					<!--<a href="#" ng-click="callSomething()">Extracts</a> -->
 				<li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded='false'>Extracts
-        <span class="caret"></span></a>
-        <ul class="dropdown-toggle">
-          <li><a ng-click='goToExtract(vm.customer_scoring)'>Customer Scoring</a></li>
-          <li><a ng-click='goToExtract(vm.holding_capacity)'>Holding Capacity</a></li>
-          <li><a ng-click='goToExtract(vm.srof)'>SROF</a></li>
-					<li><a ng-click='goToExtract(vm.volume_codes)'>Volume Codes</a></li>
-        </ul>
+					<li><a ng-click='goToCart()'>Cart</a></li>
+          <li><a ng-click='goToBikePart(vm.forks)'>Bike Forks</a></li>
+          <li><a ng-click='goToBikePart(vm.frames)'>Bike Frames</a></li>
+					<li><a ng-click='goToBikePart(vm.seats)'>Bike Seats</a></li>
+					<li><a ng-click='goToBikePart(vm.handles)'>Bike Handles</a></li>
+					<li><a ng-click='goToBikePart(vm.wheels)'>Bike Wheels</a></li>
+					<li><a ng-click='goToCustomBike()'>Custom Bike</a></li>
       </li>
-				<!--</li>-->
-				<li class="dropdown">
-        	<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded='false'>Process Duration
-        	<span class="caret"></span></a>
-        	<ul class="dropdown-toggle">
-          	<li><a ng-click='goToDurations(vm.holding_capacity)'>Holding Capacity</a></li>
-          	<li><a ng-click='goToDurations(vm.srof)'>SROF</a></li>
-						<li><a ng-click='goToDurations(vm.volume_codes)'>Volume Codes</a></li>
-        	</ul>
-      	</li>
 
-				<!--Usage Options -->
-				<li class="dropdown">
-        	<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded='false'>Usage Statistics
-        	<span class="caret"></span></a>
-        	<ul class="dropdown-toggle">
-          	<li><a ng-click='goToUsage(vm.ea)'>ea19090210</a></li>
-          	<li><a ng-click='goToUsage(vm.analytics_merch_prod)'>analytics-merch-prod19090328</a></li>
-				<li><a ng-click='goToUsage(vm.edw_dev)'>edw-dev19090000</a></li>
-          </ul>
-      	</li>
-
-			</ul>
 		</aside>
 		<!-- <article class="small-12 columns main" infinite-scroll='vm.broadcastBottomScroll()' infinite-scroll-distance='1'> -->
 

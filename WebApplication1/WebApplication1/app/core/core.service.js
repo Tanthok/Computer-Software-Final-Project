@@ -6,240 +6,133 @@
     .factory('CoreService', CoreService);
 
   /** @ngInject */
-  function CoreService($http, $q, logger, $rootScope, $modal, $state) {
-    var scannedData = {};
+    function CoreService($http, $q, logger, $rootScope, $modal, $state, $mdToast, $cookies) {
+    var users = {}
+    var currentUser = null
+    var currentCart = []
 
     var service = {
-      getVideos: getVideos,
-      getVideo: getVideo,
-      getComments: getComments,
-      getChannels: getChannels,
-      getTags: getTags,
-      likeVideo: likeVideo,
-      dislikeVideo: dislikeVideo,
-      submitComment: submitComment,
-      incrementViews: incrementViews,
-      searchVideos: searchVideos,
-      getSkuInfo: getSkuInfo,
-      setScannedData: setScannedData,
-      getScannedData: getScannedData,
-      getAbuse: getAbuse,
-      postAbuse: postAbuse,
-      deleteVideo: deleteVideo,
-      editVideo: editVideo,
-      getLikedByUserId: getLikedByUserId,
-      testCall: testCall,
-      getMainPage: getMainPage,
-      getExtractTable: getExtractTable,
-      getMainFunctionChart: getMainFunctionChart,
-      getJobHistory: getJobHistory,
-      getFunctions: getFunctions,
+      goToProfile: goToProfile,
+      logout: logout,
+      addUser: addUser,
+      isAuthenticated: isAuthenticated,
+      login: login,
+      goToCart: goToCart,
       goToHomePage: goToHomePage,
-      goToUsage: goToUsage
+      goToBikePart: goToBikePart,
+      goToCustomBike: goToCustomBike,
+      notification: notification,
+      goToLogin: goToLogin,
+      goToRegister: goToRegister,
+      getCurrentUser: getCurrentUser,
+      updateUser: updateUser,
+      getCart : getCart,
+      updateCart : updateCart,
+      addToCart: addToCart,
+      goToCheckout: goToCheckout
     };
 
-    function getFunctions(job)
+    function getCart()
     {
-      return $http.get('rs/function', {params: {'job': job}}).then(success)
+      return $cookies.getObject('cart')
+    }
+    function updateCart(cart)
+    {
+      $cookies.putObject('cart', cart)
+    }
+    function addToCart(item)
+    {
+      var cart = getCart()
+      cart.push(item)
+      updateCart(cart)
+    }
+    function updateUser(username, user)
+    {
+      setCurrentUser(user)
+      users[username] = user;
+    }
+    function getCurrentUser()
+    {
+      return $cookies.getObject('user')
+    }
+    function setCurrentUser(user)
+    {
+      $cookies.putObject('user', user)
+      console.log(getCurrentUser())
+    }
+    function notification(message)
+    {
+      $mdToast.show(
+		    $mdToast.simple()
+			.textContent(message)
+			.hideDelay(3000)
+			)
+    }
+    function goToCheckout()
+    {
+      $state.go('checkout');
+    }
+    function goToProfile()
+    {
+      $state.go('profile');
+    }
+    function goToRegister()
+    {
+      $state.go('register');
+    }
+    function goToLogin()
+    {
+      $state.go('login');
+    }
+    function addUser(newUser)
+    {
+      users[newUser.username] = newUser;
+      setCurrentUser(newUser)
     }
 
-    function getJobHistory(range, project, height)
+    function logout()
     {
-      if(range == null || range == '')
+      setCurrentUser(null)
+      goToHomePage()
+    }
+    function login(username, password)
+    {
+      if( username in users && users[username].password == password)
       {
-        range = 'month';
+        setCurrentUser(users[username])
+        return true;
       }
-      return $http.get('rs/usage3', {params: {'range': range, 'projectId': project, 'windowHeight' : height}}).then(success)
-    }
-    function testCall()
-    {
-      return  $http.get('rs/hi').then(success);
-    }
-
-    function getMainPage(range)
-    {
-      if( range == null || range == '')
-      {
-        range = 'week';
+      else {
+        return false;
       }
-      return $http.get('rs/', {params:{'range': range}}).then(success);
     }
-
-    function getMainFunctionChart(job)
+    function isAuthenticated()
     {
-      return $http.get('rs/mainfunction',{params:{'job': job}}).then(success)
+        if (getCurrentUser() == null || getCurrentUser() == {})
+        {
+          return false;
+        }
+        else {
+          return true
+        }
     }
-
-    function getExtractTable(job, range)
-    {
-      return $http.get('rs/extract', {params:{'job': job, 'range': range}}).then(success)
-    }
-
     function goToHomePage()
     {
       $state.go('home');
-      console.log("returning to the maker boyyzzzz");
     }
-
-    function goToUsage(project_id)
+    function goToCart()
     {
-      console.log('blah')
-      $state.go('usage', {'projectId': project_id});
+      $state.go('cart');
+    }
+    function goToBikePart(type)
+    {
+      $state.go('bikepart', {'type': type});
+    }
+    function goToCustomBike()
+    {
+      $state.go('custombikepage');
     }
 
-    function setScannedData(data) {
-      scannedData = data;
-    }
-
-    function getScannedData() {
-      return scannedData;
-    }
-
-    function success(response) {
-      return response.data;
-    };
-
-    function getVideos(channelName, q, start, userId, likes) {
-      if (likes == true || likes == 'true') {
-        return getLikedByUserId(userId, start);
-      }
-
-      if (q != null) {
-        return searchVideos(q, start);
-      }
-
-      var params = {
-        startIndex: start
-      }
-
-      if(channelName) params.channel = channelName;
-      if(userId) params.userId = userId;
-
-      return $http.get('rs/content/main', {
-          params: params
-        })
-        .then(success);
-    };
-
-    function searchVideos(searchQuery, start) {
-      return $http.get('rs/search?q=' + searchQuery + '&startIndex=' + start).then(success);
-    };
-
-    function getVideo(guid) {
-      return $http.get('rs/content/video/' + guid)
-        .then(success);
-    };
-
-    function getSkuInfo(sku) {
-      return $http.get('rs/search/skuInfo?skunumber=' + sku)
-        .then(function(response) {
-          setScannedData = response.data;
-          return setScannedData;
-        });
-    };
-
-    function getComments(guid) {
-      return $http.get('rs/content/comments/' + guid)
-        .then(success);
-    };
-
-    function getChannels() {
-      return $http.get('rs/content/channels')
-        .then(success);
-    };
-
-    function getTags(guid) {
-      return $http.get('rs/content/tags')
-        .then(success);
-    };
-
-    function likeVideo(guid) {
-      var deferred = $q.defer();
-
-      $http.post('rs/content/like/' + guid, {
-        liked: true
-      }).then(function(result) {
-        $rootScope.$broadcast('likedVideo', result.data);
-      }, function(error) {
-        openLogin(error);
-        deferred.reject(error);
-      });
-      return deferred.promise;
-    };
-
-    function dislikeVideo(guid) {
-      var deferred = $q.defer();
-
-      $http.post('rs/content/like/' + guid, {
-        liked: false
-      }).then(function(result) {
-        $rootScope.$broadcast('likedVideo', result.data);
-      }, function(error) {
-        openLogin(error);
-        deferred.reject(error);
-      });
-      return deferred.promise;
-    };
-
-    function submitComment(guid, comment) {
-      var deferred = $q.defer();
-
-      $http.post('rs/content/comment/' + guid, {
-        comment: comment
-      }).then(function(result) {
-        $rootScope.$broadcast('reloadComments', result.data);
-        deferred.resolve(result);
-      }, function(error) {
-        openLogin(error);
-        deferred.reject(error);
-      });
-
-      return deferred.promise;
-    };
-
-    function incrementViews(guid) {
-      return $http.post('rs/content/views/' + guid);
-    }
-
-    function openLogin(error) {
-      if (error.status == 401) {
-        var modalInstance = $modal.open({
-          templateUrl: 'app/widgets/mt-login-view/mt-login-view.view.html',
-          controller: 'mtLoginViewController'
-        });
-      }
-
-    };
-
-    function getAbuse() {
-      return $http.get('rs/content/abuse').then(success);
-    };
-
-    function getLikedByUserId(userId, start) {
-      return $http.get('rs/content/liked?userId=' + userId + '&startIndex=' + start).then(success);
-    };
-
-    function postAbuse(abuse) {
-      return $http.post('rs/content/abuse', abuse);
-    };
-
-    function deleteVideo(guid) {
-      return $http.post('rs/content/delete/' + guid).then(success);
-    }
-
-    function editVideo(guid, data) {
-        var deferred = $q.defer();
-
-        $http.post('rs/content/edit/' + guid, data).then(function(result) {
-          deferred.resolve(result);
-        }, function(error) {
-          openLogin(error);
-          deferred.reject(error);
-        });
-
-        return deferred.promise;
-//      return $http.post('rs/content/edit/' + guid, data).then(success);
-    }
 
     return service;
 
