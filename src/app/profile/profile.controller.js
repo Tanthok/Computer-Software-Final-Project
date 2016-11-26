@@ -14,6 +14,11 @@
         //TODO validate the entries and then call the adduser function in the CoreService
         $scope.updateFunc = function()
         {
+          if($scope.cardform.$invalid)
+          {
+            CoreService.notification("Please enter a valid card")
+            return;
+          }
             console.log($scope.user)
             CoreService.updateUser($scope.user.username, $scope.user)
             CoreService.goToHomePage()

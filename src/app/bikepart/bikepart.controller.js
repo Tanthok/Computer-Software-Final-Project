@@ -8,8 +8,6 @@
 
     /* @ngInject */
 	function BikePartController($stateParams, $scope,  $q, logger, CoreService, $mdDialog, $mdToast){
-        var imagePath = 'assets/images/angular.png';
-
 
         $scope.quantity = 0
 
@@ -234,44 +232,7 @@ $scope.inventory = {products:
       $scope.items = $scope.inventory.products.wheels
     }
 
-
-$scope.todos = [
-      {
-        face : imagePath,
-        what: 'Brunch this weekend?',
-        who: 'Min Li Chan',
-        when: '4:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
-      {
-        face : imagePath,
-        what: 'Brunch this weekend?',
-        who: ' Li Chan',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
-      {
-        face : imagePath,
-        what: 'Brunch this weekend?',
-        who: 'Min Li n',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
-      {
-        face : imagePath,
-        what: 'Brunch this weekend?',
-        who: 'Min Li Chan',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
-      {
-        face : imagePath,
-        what: 'Brunch this weekend?',
-        who: 'Min Li Chan',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
-    ];
+    $scope.title = $stateParams.type
 
         $scope.loginFunc = function()
         {

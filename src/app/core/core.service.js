@@ -28,7 +28,8 @@
       updateUser: updateUser,
       getCart : getCart,
       updateCart : updateCart,
-      addToCart: addToCart
+      addToCart: addToCart,
+      goToCheckout: goToCheckout
     };
 
     function getCart()
@@ -66,6 +67,10 @@
 			.textContent(message)
 			.hideDelay(3000)
 			)
+    }
+    function goToCheckout()
+    {
+      $state.go('checkout');
     }
     function goToProfile()
     {

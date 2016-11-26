@@ -11,7 +11,8 @@
 	'app.custombikepage',
 	'app.cart',
 	'app.register',
-  'app.profile'
+  'app.profile',
+  'app.checkout'
     ]);
 
 })

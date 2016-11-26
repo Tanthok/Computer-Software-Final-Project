@@ -1,7 +1,7 @@
 <br>Username</br>
 <input type="text" ng-model="user.username">
 <br>Password</br>
-<input type="text" ng-model="user.password">
+<input type="password" ng-model="user.password">
 <br>First Name</br>
 <input type="text" ng-model="user.first_name">
 <br>Last Name</br>
@@ -14,11 +14,13 @@
 <input type="text" ng-model="user.address.city">
 <br>Zip Code</br>
 <input type="text" ng-model="user.address.zip_code">
+<form name="cardform">
 <br>Credit Card Number</br>
-<input type="text" ng-model="user.card.card_number">
+<input type="text" ng-model="user.card.card_number" payments-validate="card" payments-format="card">
 <br>Exp Date</br>
-<input type="month" ng-model="user.card.exp_date">
+<input type="text" ng-model="user.card.exp_date" payments-validate="expiry" payments-format="expiry">
 <br>Security Code</br>
-<input type="text" ng-model="user.card.card_code">
+<input type="text" ng-model="user.card.card_code" payments-validate="cvc" payments-format="cvc">
+</form>
 <button type="button" name="login" ng-click="updateFunc()">Update</button>
 <button type="button" name="login" ng-click="cancelFunc()">Cancel</button>

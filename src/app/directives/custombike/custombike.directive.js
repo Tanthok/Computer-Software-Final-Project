@@ -1,6 +1,8 @@
 (function()
 {
-angular.module('app.directives').directive(
+angular.module('app.directives').controller('custombikeController', ['$scope', function($scope) {
+  $scope.index = 2
+}]).directive(
     'custombike', CustomBikeDirective);
 
 
@@ -12,6 +14,7 @@ angular.module('app.directives').directive(
 	    templateUrl: 'app/directives/custombike/custom-bike.view.html',
 	    replace: false,
 	    scope: {
+        index: '=',
 		forkColor: '=',
 		frameColor: '=',
 		seatColor: '=',
@@ -21,38 +24,32 @@ angular.module('app.directives').directive(
 	    link: function(scope, element) {
 		scope.$watchGroup(['forkColor', 'frameColor', 'seatColor',
 			'handleColor', 'frameDecalColor'], function(attr, scope, newValues){
-		    /*
-		    var forkColor = newValues[0];
-		    var frameColor = newValues[1];
-		    var seatColor = newValues[2];
-		    var handleColor = newValues[3];
-		    var frameDecalColor = newValues[4];
-		    */
+
 		    console.log(newValues);
-		    var svgElement = d3.select('#forkGroup');
+		    var svgElement = d3.select('#forkGroup' + newValues.index);
 		    svgElement.style('fill', newValues.forkColor);
 		    svgElement.style('stroke', newValues.forkColor);
-		    
 
-		    svgElement = d3.select('#frame');
+
+		    svgElement = d3.select('#frame' + newValues.index);
 		    svgElement.style('fill', newValues.frameColor);
 		    svgElement.style('stroke', newValues.frameColor);
 
-		    svgElement = d3.select('#frame-decal');
+		    svgElement = d3.select('#frame-decal' + newValues.index);
 		    svgElement.style('fill', newValues.frameDecalColor);
 		    svgElement.style('stroke', newValues.frameDecalColor);
 
-		    svgElement = d3.select('#seat');
+		    svgElement = d3.select('#seat' + newValues.index);
 		    svgElement.style('fill', newValues.seatColor);
 		    svgElement.style('stroke', newValues.seatColor);
-			
-			svgElement = d3.select('#handle-bar');
+
+			svgElement = d3.select('#handle-bar' + newValues.index);
 		    svgElement.style('stroke', newValues.handleColor);
-		    
-		}); 
+
+		});
 	    }
 	}
-} 
+}
 }
 )
 ();
